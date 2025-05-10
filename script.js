@@ -63,6 +63,14 @@ input.addEventListener('input', () => {
   span.style.top = `${Math.random() * 20}px`;
   span.style.fontSize = `${Math.random() * 35 + 15}px`;
   span.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+
+  // ✅ 낙하 거리 기기별 계산해서 적용!
+  const fallDistance = window.innerWidth < 768
+    ? window.innerHeight * 0.65
+    : window.innerHeight;
+  span.style.setProperty('--fall-distance', `${fallDistance}px`);
+  span.style.animation = 'fall 4s linear forwards';
+
   output.appendChild(span);
 
   const finalY = window.innerHeight;

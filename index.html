@@ -55,7 +55,7 @@
       }
 
       100% {
-        transform: translateY(100vh);
+        transform: translateY(var(--fall-distance, 100vh));
         opacity: 1;
       }
     }
@@ -79,13 +79,14 @@
 
     #inputArea {
       position: fixed;
-      bottom: 16px;
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-      width: 90%;
-      height: 50px;
-      padding: 10px;
-      font-size: 14px;
+      width: 600px;
+      max-width: 90%;
+      height: 60px;
+      padding: 12px 16px;
+      font-size: 18px;
       border: none;
       background: white;
       color: black;
@@ -118,7 +119,7 @@
 
     #statusBar {
       position: fixed;
-      top: 10px;
+      top: max(10px, env(safe-area-inset-top, 10px));
       left: 50%;
       transform: translateX(-50%);
       padding: 6px 14px;
@@ -130,21 +131,16 @@
     }
 
     @media (max-width: 768px) {
-      @keyframes fall {
-        0% {
-          transform: translateY(0);
-          opacity: 1;
-        }
-
-        100% {
-          transform: translateY(calc(var(--vh, 1vh) * 65));
-          opacity: 1;
-        }
+      #inputArea {
+        width: 90%;
+        height: 50px;
+        font-size: 14px;
+        padding: 10px;
       }
 
       #statusBar {
+        top: 18px;
         font-size: 13px;
-        top: 8px;
       }
 
       .message {
@@ -162,8 +158,6 @@
   <div id="output"></div>
   <textarea id="inputArea" placeholder="여기에 아무거나 쳐봐요" autofocus></textarea>
   <div id="statusBar">감정 상태: 없음</div>
-
-  <!-- 🔗 script.js 연결 -->
   <script src="script.js"></script>
 </body>
 
