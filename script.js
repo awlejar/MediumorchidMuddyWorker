@@ -1,25 +1,18 @@
-function setVh() {
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-window.addEventListener('resize', setVh);
-window.addEventListener('orientationchange', setVh);
-setVh();
-
 const input = document.getElementById('inputArea');
 const output = document.getElementById('output');
 const statusBar = document.getElementById('statusBar');
 
 const characters = [];
-let MAX_CHARS = 50;
-if (window.innerWidth < 768) MAX_CHARS = 30;
+const MAX_CHARS = 50;
 let currentMessage = null;
 
-const emotionTriggers = ["화나", "열받아", "빡쳐", "지쳐", "지친다", "스트레스",
+const emotionTriggers = [
+  "화나", "열받아", "빡쳐", "지쳐", "지친다", "스트레스",
   "무섭다", "무서워", "피곤", "몰라", "불안", "힘들다", "짜증", "좋아",
   "ㅅㅂ", "시발", "씨발", "집", "멍함", "멍해", "부담", "답답", "막막",
   "슬퍼", "슬프다", "눈물", "외로워", "괴로워", "머리아파", "뭐야",
-  "재밌다", "재밌어", "지겨워", "지겹다", "지루", "졸려", "졸리다", "황당", "대박"];
+  "재밌다", "재밌어", "지겨워", "지겹다", "지루", "졸려", "졸리다", "황당", "대박"
+];
 
 const emotionColors = [
   "#AF331C", "#AF331C", "#AF331C", "#454818", "#454818", "#16235C",
@@ -28,14 +21,15 @@ const emotionColors = [
   "#8D8D8D", "#8D8D8D", "#48325A", "#48325A", "#48325A", "#303657",
   "#303657", "#303657", "#464646", "#3F221A", "#1C2656", "#8D5A9A",
   "#5967D6", "#5967D6", "#3A2B4B", "#3A2B4B", "#474B6A", "#000000",
-  "#000000", "#7C6F5C", "#1B7563"];
+  "#000000", "#7C6F5C", "#1B7563"
+];
 
 const emotionEmojis = [
-  "😡", "😡", "😡", "😩", "😩", "😖", "😱", "😱",
-  "😴", "🤷", "😰", "🫠", "😤", "😊", "🨬", "🨬", "🨬",
-  "🏠", "🫥", "🫥", "🩱", "🩱", "🩱", "😢", "😢", "😢",
-  "🦀", "😖", "🨯", "😶", "😂", "😂", "😒", "😒", "🥱",
-  "😴", "😴", "🤯", "🨯"];
+  "😡", "😡", "😡", "😩", "😩", "😖", "😱", "😱", "😴", "🤷", "😰", "🫠",
+  "😤", "😊", "🤬", "🤬", "🤬", "🏠", "🫥", "🫥", "🧱", "🧱", "🧱", "😢",
+  "😢", "😢", "🥀", "😖", "🤯", "😶", "😂", "😂", "😒", "😒", "🥱", "😴",
+  "😴", "😳", "🤯"
+];
 
 const phrases = [
   "계속 해.", "지금이야.", "더 쳐.", "그만두지 마.", "이게 다야?",
@@ -44,12 +38,6 @@ const phrases = [
   "멋대로 해.", "쏟아내.", "쓸데없는 걸 써봐.", "그냥 치라고.",
   "혼자 해도 돼.", "괜찮아. 더 이상해도.", "이건 기록이 아냐."
 ];
-
-input.addEventListener('focus', () => {
-  setTimeout(() => {
-    input.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 300);
-});
 
 input.addEventListener('input', () => {
   const value = input.value;
@@ -63,14 +51,6 @@ input.addEventListener('input', () => {
   span.style.top = `${Math.random() * 20}px`;
   span.style.fontSize = `${Math.random() * 35 + 15}px`;
   span.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
-
-  // ✅ 낙하 거리 기기별 계산해서 적용!
-  const fallDistance = window.innerWidth < 768
-    ? window.innerHeight * 0.65
-    : window.innerHeight;
-  span.style.setProperty('--fall-distance', `${fallDistance}px`);
-  span.style.animation = 'fall 4s linear forwards';
-
   output.appendChild(span);
 
   const finalY = window.innerHeight;
